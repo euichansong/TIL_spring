@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>목록</title>
+    <script>
+        function filterByCategory() {
+            var selectedCategory = document.getElementById('categorySelect').value;
+            if (selectedCategory === 'ALL') {
+                // '전체'가 선택되면, '/board/'로 이동
+                window.location.href = '/board/';
+            } else {
+                // 그 외의 경우, '/board/list/{selectedCategory}'로 이동
+                window.location.href = '/board/list/' + selectedCategory;
+            }
+        }
+    </script>
+</head>
+<body>
+<a href="/">홈 링크</a>
+<select id="categorySelect" onchange="filterByCategory()">
+    <option value="ALL">전체</option>
+    <option value="AAA">AAA</option>
+    <option value="BBB">BBB</option>
+    <option value="CCC">CCC</option>
+    <option value="DDD">DDD</option>
+</select>
+<table>
+    <tr>
+        <th>id</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>날짜</th>
+        <th>조회수</th>
+        <th>카테고리</th> <!-- 카테고리 열 추가 -->
+    </tr>
+    <tr th:each="board: ${boardList}">
+        <td th:text="${board.id}"></td>
+        <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>
+        <td th:text="${board.boardWriter}"></td>
+        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${board.boardHits}"></td>
+        <td th:text="${board.boardCategory}"></td> <!-- 카테고리 데이터 표시 -->
+    </tr>
+</table>
+</body>
+</html>

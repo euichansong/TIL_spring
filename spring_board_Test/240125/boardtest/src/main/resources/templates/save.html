@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성</title>
+</head>
+<body>
+<a href="/">홈 링크</a>
+<form action="/board/save" method="post" enctype="multipart/form-data">
+    작성자: <input type="text" name="boardWriter"> <br>
+    비밀번호: <input type="text" name="boardPass"> <br>
+    제목: <input type="text" name="boardTitle"> <br>
+    내용: <textarea name="boardContents" cols="30" rows="10"></textarea> <br>
+    파일: <input type="file" name="boardFile"> <br>
+<!--    카테고리:-->
+<!--    <select name="boardCategory">-->
+<!--        <option value="AAA">AAA</option>-->
+<!--        <option value="BBB">BBB</option>-->
+<!--        <option value="CCC">CCC</option>-->
+<!--        <option value="DDD">DDD</option>-->
+<!--    </select> <br>-->
+    카테고리:
+    <select name="boardCategory">
+        <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+    </select> <br>
+
+    <input type="submit" value="글 작성">
+</form>
+</body>
+</html>
